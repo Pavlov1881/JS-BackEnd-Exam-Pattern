@@ -1,5 +1,14 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
+const mongoose = require('mongoose');
+
+// TODO: change name
+const dbName = 'crypto';
+
+databaseConnect()
+    .then(() => console.log('Database connected successfuly!'))
+    .catch(err => console.log(err));
+
 
 const router = require('./routes');
 
@@ -16,6 +25,8 @@ app.use(express.urlencoded({ extended: false }));   //прасва даннит�
 app.use(router);
 
 
+async function databaseConnect() {
+    await mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`);
+}
 
-
-app.listen(5000, () => console.log('Server is running on port 5000...'))
+app.listen(5000, () => console.log('Server is running on port 5000...'));
