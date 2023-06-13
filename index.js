@@ -1,10 +1,17 @@
 const express = require('express');
+const handlebars = require('express-handlebars');
 
-const router = require('./routes')
+const router = require('./routes');
 
 const app = express();
 
-app.use(express.static('public'))
+app.engine('hbs', handlebars.engine({
+    extname: 'hbs',
+}));
+
+app.set('view engine', 'hbs');
+
+app.use(express.static('public'));
 app.use(express.urlencoded({ extendet: false }));   //прасва данните от form в req.body
 app.use(router);
 
