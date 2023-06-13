@@ -2,7 +2,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
 
-// TODO: change name
+//! TODO: change name
 const dbName = 'crypto';
 
 databaseConnect()
