@@ -11,8 +11,8 @@ app.engine('hbs', handlebars.engine({
 
 app.set('view engine', 'hbs');
 
-app.use(express.static('public'));
-app.use(express.urlencoded({ extendet: false }));   //прасва данните от form в req.body
+app.use('/static', express.static('public'));
+app.use(express.urlencoded({ extended: false }));   //прасва данните от form в req.body
 app.use(router);
 
 
