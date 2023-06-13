@@ -15,11 +15,11 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-userSchema.virtual('confirmPassword').set(function (value) {
-    if (this.password !== value) {
-        throw new mongoose.MongooseError('Password don`t match!');
-    }
-});
+// userSchema.virtual('confirmPassword').set(function (value) {
+//     if (this.password !== value) {
+//         throw new mongoose.MongooseError('Password don`t match!');
+//     }
+// });
 
 const User = mongoose.model('User', userSchema);
 
