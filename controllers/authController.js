@@ -19,6 +19,9 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
     await authService.register(username, email, password, confirmPassword);
+
+    //! check redirect to ?
+    res.redirect('/');
 });
 
 module.exports = router;
