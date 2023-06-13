@@ -7,7 +7,11 @@ const dbName = 'crypto';
 
 databaseConnect()
     .then(() => console.log('Database connected successfuly!'))
-    .catch(err => console.log(err));
+    .catch((error) => {
+        console.error('Error initializing database');
+        console.error(error.message);
+        process.exit(1);
+    })
 
 
 const router = require('./routes');
@@ -26,6 +30,7 @@ app.use(router);
 
 
 async function databaseConnect() {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`);
 }
 
