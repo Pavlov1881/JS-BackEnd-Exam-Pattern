@@ -2,6 +2,8 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
 
+const cookieParser = require('cookie-parser');
+
 //! TODO: change name
 const dbName = 'crypto';
 
@@ -26,6 +28,7 @@ app.set('view engine', 'hbs');
 
 app.use('/static', express.static('public'));
 app.use(express.urlencoded({ extended: false }));   //прасва данните от form в req.body
+app.use(cookieParser());
 app.use(router);
 
 
