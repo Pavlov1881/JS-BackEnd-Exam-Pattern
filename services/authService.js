@@ -6,14 +6,14 @@ const SECRET = 'veryStrongSecretDge'
 // check if the user exist
 // exports.findByUsername = (username) => User.findOne({username});
 
-exports.findByEmail = (email) => User.findOne({email}); 
+exports.findByEmail = (email) => User.findOne({ email });
 
 
 exports.register = async (username, email, password, confirmPassword) => {
 
     //validate password
     if (password !== confirmPassword) {
-        throw new Error('Password don`t match!'); 
+        throw new Error('Password don`t match!');
     }
 
     // check if the user exist
@@ -26,21 +26,21 @@ exports.register = async (username, email, password, confirmPassword) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({ username, email, password: hashedPassword });
-    
+
 };
 
 exports.login = async (email, password) => {
     // user exist
     const user = await this.findByEmail(email);
 
-    if(!user) {
+    if (!user) {
         throw new Error('Invalid email or password!');
     }
 
     // valid password
-    const isValid = await bcrypt.compare(user.password, password);
-    
-    if(!isValid) {
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (!isValid) {
         throw new Error('Invalid email or password!');
     }
 
@@ -50,8 +50,8 @@ exports.login = async (email, password) => {
         email,
         user: user.username
     }
-    
+
     const token = await jwt.sign(payload, SECRET);
-    
+
     return token;
 }
