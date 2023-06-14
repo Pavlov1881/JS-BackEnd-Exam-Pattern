@@ -3,9 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('../libraries/jwt');
 const SECRET = 'veryStrongSecretDge'
 
-// check if the user exist
-// exports.findByUsername = (username) => User.findOne({username});
-
+// search user by email
 exports.findByEmail = (email) => User.findOne({ email });
 
 
