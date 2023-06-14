@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 const cookieParser = require('cookie-parser');
 
+const { authentication } = require('./middlewares/authMiddleware')
+
 //! TODO: change name
 const dbName = 'crypto';
 
@@ -27,9 +29,10 @@ app.engine('hbs', handlebars.engine({
 app.set('view engine', 'hbs');
 
 app.use('/static', express.static('public'));
-app.use(express.urlencoded({ extended: false }));   //parse "form" data in req.body
-app.use(cookieParser());
-app.use(router);
+app.use(express.urlencoded({ extended: false }));    //parse "form" data in req.body
+app.use(cookieParser());                                
+app.use(authentication);                             // проверка има ли логнат user
+app.use(router);                                     // всички request-и минават през основен router
 
 
 async function databaseConnect() {

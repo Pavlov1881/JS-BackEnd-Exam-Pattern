@@ -15,9 +15,11 @@ router.post('/login', async (req, res) => {
     const token = await authService.login(email, password);
 
     // add token to cookie
-    res.cookie(`${email}`, token);
+    res.cookie('auth', token);
 
+    
     res.redirect('/');
+    
 });
 
 router.get('/register', (req, res) => {

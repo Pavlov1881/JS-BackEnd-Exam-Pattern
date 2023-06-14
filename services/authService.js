@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('../libraries/jwt');
-const SECRET = 'veryStrongSecretDge'
+const { SECRET } = require('../constants');
 
 // search user by email
 exports.findByEmail = (email) => User.findOne({ email });
