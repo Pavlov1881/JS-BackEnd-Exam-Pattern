@@ -31,17 +31,16 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
     try {
-        await authService.register(username, email, password, confirmPassword);
-        const token = authService.login(email, password);
+        const token = await authService.register(username, email, password, confirmPassword);
 
         res.cookie('auth', token);
+        //! check redirect to ?
         res.redirect('/');
+
     } catch (error) {
-        res.status(400).render('auth/register', {error: error.message})
+        res.status(400).render('auth/register', { error: error.message })
     }
 
-    //! check redirect to ?
-    res.redirect('/');
 });
 
 router.get('/logout', (req, res) => {

@@ -15,15 +15,22 @@ exports.register = async (username, email, password, confirmPassword) => {
     }
 
     // check if the user exist
-    // const existingUser = await this.findByUsername(username);
-    // if (existingUser) {
-    //     throw new Error('This username allready exist!');
-    // }
+    const existingUser = await User.findOne({
+        $or: [
+            { email },
+            { username },
+        ]
+    });
+    if (existingUser) {
+        throw new Error('This username allready exist!');
+    }
 
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({ username, email, password: hashedPassword });
+
+    return this.login(email, password);
 
 };
 
